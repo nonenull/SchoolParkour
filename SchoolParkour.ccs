@@ -1,0 +1,12 @@
+<Solution>
+  <PropertyGroup Name="SchoolParkour" Version="3.10.0.0" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Project Name="BackgroundLayer.csd" Type="Layer" />
+        <Image Name="HelloWorld.png" />
+        <Project Name="MainScene.csd" Type="Scene" />
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>
