@@ -5,7 +5,7 @@ StartGameLayer = cc.Layer.extend({
     monsterSpritesArray: [],
     monsterSpeed: 3,
     bgSpeed: 6,
-    timeout: 30,
+    timeout: 3000,
     blood: 3,
     ctor: function () {
         this._super();
@@ -19,8 +19,7 @@ StartGameLayer = cc.Layer.extend({
         this.addTouchEventListenser();
 
         this.schedule(this.addMonster, 4, 16 * 1024, 1);
-        this.schedule(this.removeMonster, 2, 16 * 1024, 4);
-        this.schedule(this.timeOutSchedule, 1, this.timeout-1, 0);
+        this.schedule(this.timeOutSchedule, 1, this.timeout - 1, 0);
         return true;
     },
     addTopBar: function () {
@@ -44,12 +43,12 @@ StartGameLayer = cc.Layer.extend({
         this.timeoutLabel.y = y;
         this.addChild(this.timeoutLabel, 5);
     },
-    timeOutSchedule: function(){
+    timeOutSchedule: function () {
         this.timeout -= 1;
         this.timeoutLabel.setString("Time: " + this.timeout);
-        if(this.timeout === 0){
+        if (this.timeout === 0) {
             cc.log('时间到');
-            cc.director.runScene(new GameOverScene());
+            this.gameOver();
         }
     },
     addBG: function (type) {
@@ -84,7 +83,7 @@ StartGameLayer = cc.Layer.extend({
         this.runnerSprite.runAction(cc.repeatForever(action));
         this.addChild(this.runnerSprite, 5);
     },
-    hurtRunner: function(){
+    hurtRunner: function () {
         var action, x, y, forwardBy, backBy;
         //cc.log(this.runnerSprite.y, this.size.height * (1 / 4));
         if (this.runnerSprite.y - this.size.height * (1 / 4) < 0.1) {
@@ -104,7 +103,7 @@ StartGameLayer = cc.Layer.extend({
         if (this.runnerSprite.y - this.size.height * (1 / 4) < 0.1) {
             //cc.log('jump');
             x = 5;
-            y = 100;
+            y = 200;
             forwardBy = new cc.JumpBy(0.6, cc.p(x, y), 200, 0);
             backBy = forwardBy.reverse();
             action = new cc.Sequence(forwardBy, backBy);
@@ -120,7 +119,7 @@ StartGameLayer = cc.Layer.extend({
             'monster4': cc.rect(328, 102, 92, 92),
             'monster5': cc.rect(453, 105, 85, 105)
         };
-        //返回小于等于n的最大整数。
+        //返回小于等于n的最大整数,随机生成怪物
         rangeNum = Math.floor(Math.random() * 6);
         var monsterRange = monsterList['monster' + rangeNum];
         var monster = new cc.Sprite(res.Monster, monsterRange);
@@ -131,23 +130,28 @@ StartGameLayer = cc.Layer.extend({
             y: y
         });
         this.addChild(monster);
-        var action = new cc.MoveTo(this.monsterSpeed, cc.p(-(monster.width), y));
+        cc.log('生成怪物');
         this.monsterSpritesArray.push(monster);
+        var action = new cc.MoveTo(this.monsterSpeed, cc.p(-(monster.width), y));
+        var callback = new cc.CallFunc(function () {
+            this.removeMonster(1);
+        }, this);
         setTimeout(function () {
-            monster.runAction(action)
+            monster.runAction(new cc.Sequence(action, callback));
+            cc.log('怪物出动');
         }, Math.ceil(Math.random() * 2000));
     },
-    removeMonster: function () {
-        var i;
-        for (i = 0; i < this.monsterSpritesArray.length; i++) {
-            var monster = this.monsterSpritesArray[i];
-            if (monster.x < 0) {
-                //cc.log(monster.x);
-                //cc.log("==============remove:" + i);
-                monster.removeFromParent();
-                monster = undefined;
-                this.monsterSpritesArray.splice(i, 1);
-            }
+    removeMonster: function (removeNum) {
+        if (removeNum == 0) {
+            removeNum = this.monsterSpritesArray.length;
+        }
+        var monster;
+        for (var i = 0; i < removeNum; i++) {
+            cc.log('删除怪物');
+            monster = this.monsterSpritesArray[i];
+            monster.removeFromParent();
+            monster = undefined;
+            this.monsterSpritesArray.splice(i, 1);
         }
     },
     addTouchEventListenser: function () {
@@ -163,6 +167,34 @@ StartGameLayer = cc.Layer.extend({
         });
         cc.eventManager.addListener(this.touchListener, this);
     },
+    gameOver: function () {
+        this.schedule(function(){this.removeMonster(0)}, 0.1, 1, 0);
+        cc.director.runScene(new GameOverScene());
+    },
+    collision: function () {
+        if (this.monsterSpritesArray.length <= 0) {
+            return;
+        }
+        cc.log(this.monsterSpritesArray.length);
+        var monster = this.monsterSpritesArray[0];
+        if (monster.hasOwnProperty('isCollision')) {
+            return;
+        }
+        var runner = this.runnerSprite;
+        var monsterRect = monster.getBoundingBox();
+        var runnerRect = runner.getBoundingBox();
+
+        var isCollision = cc.rectOverlapsRect(monsterRect, runnerRect);
+        if (isCollision) {
+            cc.log('碰撞到了');
+            monster.isCollision = true;
+            this.blood -= 1;
+            this.bloodLabel.setString("Blood: " + this.blood);
+            if (this.blood === 0) {
+                this.schedule(this.gameOver, 0.5, 1, 0)
+            }
+        }
+    },
     update: function () {
         for (var i = 0; i < this.bgSprites.length; i++) {
             bg = this.bgSprites[i];
@@ -171,29 +203,7 @@ StartGameLayer = cc.Layer.extend({
                 bg.x = this.size.width * 1.5;
             }
         }
-        if (this.monsterSpritesArray.length <= 0) {
-            return;
-        }
-        var monster = this.monsterSpritesArray[0];
-        if(monster.isCollision){
-            return;
-        }
-        monsterRect = cc.rect(monster.x, monster.y, monster.width, monster.height);
-
-        var runner = this.runnerSprite;
-        runnerRect = cc.rect(runner.x, runner.y, runner.width, runner.height);
-        var collision = cc.rectOverlapsRect(runnerRect, monsterRect);
-        if (collision) {
-            cc.log('碰撞到了');
-            monster.isCollision = true;
-            this.blood -= 1;
-            this.bloodLabel.setString("Blood: " + this.blood);
-            if(this.blood === 0){
-                cc.log('玩家死亡');
-                cc.director.runScene(new GameOverScene());
-            }
-
-        }
+        this.collision();
     }
 });
 
