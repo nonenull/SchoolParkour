@@ -1,6 +1,5 @@
 var res = {
     PlayBG : "res/PlayBG.jpg",
-    Map : "res/Map.png",
     Runner1 : "res/Runner1.png",
     Runner2 : "res/Runner2.png",
     Runner3 : "res/Runner3.png",

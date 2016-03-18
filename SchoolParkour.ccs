@@ -3,9 +3,42 @@
   <SolutionFolder>
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">
+        <Folder Name="res">
+          <Folder Name="Default">
+            <ExportJsonFile Name="DemoPlayer.ExportJson" />
+          </Folder>
+          <PlistImageFolder Image="Monster.png" PListFile="Monster.plist" Name=".Monster_PList.Dir">
+            <PlistImageFile Name="monster0.png" Key="monster0.png" />
+          </PlistImageFolder>
+          <Folder Name="sucai">
+            <File Name="46-120R5093127-51.gif" />
+            <File Name="971_41615647_22416a5f18a438c.gif" />
+            <Image Name="monster.jpg" />
+            <Image Name="PlayBG.jpg" />
+          </Folder>
+          <File Name="BackgroundLayer.json" />
+          <Image Name="HelloWorld.png" />
+          <File Name="MainScene.json" />
+          <Image Name="PlayBG.jpg" />
+          <Image Name="PlayBG1.jpg" />
+          <Image Name="Runner1.png" />
+          <Image Name="Runner10.png" />
+          <Image Name="Runner11.png" />
+          <Image Name="Runner12.png" />
+          <Image Name="Runner2.png" />
+          <Image Name="Runner3.png" />
+          <Image Name="Runner4.png" />
+          <Image Name="Runner5.png" />
+          <Image Name="Runner6.png" />
+          <Image Name="Runner7.png" />
+          <Image Name="Runner8.png" />
+          <Image Name="Runner9.png" />
+          <File Name="RunnerLayer.json" />
+        </Folder>
         <Project Name="BackgroundLayer.csd" Type="Layer" />
         <Image Name="HelloWorld.png" />
         <Project Name="MainScene.csd" Type="Scene" />
+        <Project Name="RunnerLayer.csd" Type="Layer" />
       </RootFolder>
     </Group>
   </SolutionFolder>

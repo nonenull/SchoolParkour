@@ -1,9 +1,12 @@
 GameOverLayer = cc.Layer.extend({
-    size: cc.winSize,
     ctor: function () {
         this._super();
+        this.initLayer();
         this.addGameOverLabel();
         this.addRestartLabel();
+    },
+    initLayer: function(){
+        this.size = cc.winSize;
     },
     addGameOverLabel: function () {
         this.gameOverLabel = new cc.LabelTTF("Game Over", "Arial", 50);

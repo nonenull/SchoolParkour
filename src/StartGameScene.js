@@ -1,26 +1,32 @@
 StartGameLayer = cc.Layer.extend({
-    sprite: null,
-    size: cc.winSize,
-    bgSprites: [],
-    monsterSpritesArray: [],
-    monsterSpeed: 3,
-    bgSpeed: 6,
-    timeout: 3000,
-    blood: 3,
     ctor: function () {
         this._super();
-
+        this.initLayer();
         this.addBG(0);
         this.addBG(1);
         this.addTopBar();
-
         this.addRunner();
         this.scheduleUpdate();
         this.addTouchEventListenser();
-
         this.schedule(this.addMonster, 4, 16 * 1024, 1);
         this.schedule(this.timeOutSchedule, 1, this.timeout - 1, 0);
         return true;
+    },
+    initLayer: function () {
+        this.sprite = null;
+        this.size = cc.winSize;
+        //存放背景精灵的数组
+        this.bgSprites = [];
+        //存放怪物精灵的数组
+        this.monsterSprites = [];
+        //怪物速度
+        this.monsterSpeed = 3;
+        //背景移动速度 像素/帧
+        this.bgSpeed = 6;
+        //游戏倒计时
+        this.timeout = 30;
+        //玩家血量
+        this.blood = 3;
     },
     addTopBar: function () {
         var y = this.size.height - 20;
@@ -84,17 +90,15 @@ StartGameLayer = cc.Layer.extend({
         this.addChild(this.runnerSprite, 5);
     },
     hurtRunner: function () {
-        var action, x, y, forwardBy, backBy;
-        //cc.log(this.runnerSprite.y, this.size.height * (1 / 4));
-        if (this.runnerSprite.y - this.size.height * (1 / 4) < 0.1) {
-            //cc.log('jump');
-            x = 10;
-            y = 200;
-            forwardBy = new cc.JumpBy.create(0.6, cc.p(x, y), 200, 0);
-            backBy = forwardBy.reverse();
-            action = new cc.Sequence(forwardBy, backBy);
-            this.runnerSprite.runAction(action);
-        }
+        var forwardBy, backBy, action;
+        forwardBy = new cc.FadeOut(0.2);
+        backBy = forwardBy.reverse();
+        action = new cc.Sequence(forwardBy, backBy);
+        this.runnerSprite.runAction(action.repeat(2));
+    },
+    deadRunner: function () {
+        this.runnerSprite.setRotation(0);
+        this.runnerSprite.runAction(new cc.RotateTo(1, 720));
     },
     jumpRunner: function () {
         var action, x, y, forwardBy, backBy;
@@ -130,28 +134,30 @@ StartGameLayer = cc.Layer.extend({
             y: y
         });
         this.addChild(monster);
-        cc.log('生成怪物');
-        this.monsterSpritesArray.push(monster);
+        //cc.log('生成怪物');
+        this.monsterSprites.push(monster);
         var action = new cc.MoveTo(this.monsterSpeed, cc.p(-(monster.width), y));
         var callback = new cc.CallFunc(function () {
             this.removeMonster(1);
         }, this);
         setTimeout(function () {
             monster.runAction(new cc.Sequence(action, callback));
-            cc.log('怪物出动');
+            //cc.log('怪物出动');
         }, Math.ceil(Math.random() * 2000));
     },
     removeMonster: function (removeNum) {
         if (removeNum == 0) {
-            removeNum = this.monsterSpritesArray.length;
+            removeNum = this.monsterSprites.length;
         }
-        var monster;
         for (var i = 0; i < removeNum; i++) {
-            cc.log('删除怪物');
-            monster = this.monsterSpritesArray[i];
-            monster.removeFromParent();
-            monster = undefined;
-            this.monsterSpritesArray.splice(i, 1);
+            try {
+                this.monsterSprites[i].removeFromParent();
+                this.monsterSprites.splice(i, 1);
+            } catch (e) {
+                cc.log(this.monsterSprites[i]);
+                cc.log("name: " + e.name + " errorNumber: " + (e.number & 0xFFFF ) + " message: " + e.message);
+                this.monsterSprites.splice(i, 1);
+            }
         }
     },
     addTouchEventListenser: function () {
@@ -168,32 +174,54 @@ StartGameLayer = cc.Layer.extend({
         cc.eventManager.addListener(this.touchListener, this);
     },
     gameOver: function () {
-        this.schedule(function(){this.removeMonster(0)}, 0.1, 1, 0);
         cc.director.runScene(new GameOverScene());
     },
     collision: function () {
-        if (this.monsterSpritesArray.length <= 0) {
+        if (this.monsterSprites.length <= 0) {
             return;
         }
-        cc.log(this.monsterSpritesArray.length);
-        var monster = this.monsterSpritesArray[0];
+        //cc.log(this.monsterSprites.length);
+        var monster = this.monsterSprites[0];
         if (monster.hasOwnProperty('isCollision')) {
             return;
         }
         var runner = this.runnerSprite;
-        var monsterRect = monster.getBoundingBox();
-        var runnerRect = runner.getBoundingBox();
 
-        var isCollision = cc.rectOverlapsRect(monsterRect, runnerRect);
-        if (isCollision) {
-            cc.log('碰撞到了');
+        // 计算两者之间的距离,pDistance()以两者的中心点为原点作计算
+        var distance = cc.pDistance(runner.getPosition(), monster.getPosition());
+        //cc.log('两者距离: ' + distance);
+        var radiusSum = monster.width / 2 + runner.width / 2;
+        //cc.log("distance:" + distance + "; radius:" + radiusSum);
+        if (distance < radiusSum) {
+            //cc.log('----------碰撞到了');
+            this.hurtRunner();
+            //cc.director.pause();
             monster.isCollision = true;
             this.blood -= 1;
             this.bloodLabel.setString("Blood: " + this.blood);
             if (this.blood === 0) {
-                this.schedule(this.gameOver, 0.5, 1, 0)
+                this.deadRunner();
+                this.unscheduleAllCallbacks()
+                this.schedule(this.gameOver, 0.5, 1, 0);
             }
         }
+
+        //针对第三三种方法又加深了一下，使得对矩形类的精灵也能有好的判断，
+        //主要就是分别对X和Y方向设置不同的Radius，然后去进行分别判断
+        //var distanceX = Math.abs(monster.getPositionX() - runner.getPositionX());
+        //var distanceY = Math.abs(monster.getPositionY() - runner.getPositionY());
+        //var radiusYSum = monster.height/2 + runner.height/2;
+        //if (distanceX < monster.width/2 && distanceY < radiusYSum) {
+        //    cc.log('碰撞到了');
+        //    monster.isCollision = true;
+        //    this.blood -= 1;
+        //    this.bloodLabel.setString("Blood: " + this.blood);
+        //    if (this.blood === 0) {
+        //        this.deadRunner();
+        //        this.unscheduleAllCallbacks();
+        //        this.schedule(this.gameOver, 0.5, 1, 0);
+        //    }
+        //}
     },
     update: function () {
         for (var i = 0; i < this.bgSprites.length; i++) {

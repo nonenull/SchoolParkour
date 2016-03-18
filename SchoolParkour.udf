@@ -2,14 +2,17 @@
   <Properties>
     <Item Key="TabsParamsKey">
       <Value ctype="TabsInfo">
-        <ActiveDocument />
+        <OpenedDocuments>
+          <FilePathData Path="RunnerLayer.csd" />
+        </OpenedDocuments>
+        <ActiveDocument Path="RunnerLayer.csd" />
       </Value>
     </Item>
     <Item Key="CocosRecentOperation">
       <Value ctype="CocosRecentOperation">
         <LastPublishType Value="Resource" />
         <IsLastPublish Value="True" />
-        <LastRunType Value="Mac" />
+        <LastRunType Value="Web" />
       </Value>
     </Item>
     <Item Key="PackageParamsKey">
@@ -23,7 +26,7 @@
         <iOS_Target Value="SchoolParkour-mobile" />
         <iOS_BundleID Value="" />
         <Platform Value="None" />
-        <RunPlatform Value="Mac" />
+        <RunPlatform Value="Web" />
         <FrameworkVersion Value="cocos2d-x-3.10" />
         <IsDebugKeystore Value="True" />
         <EnableSourceMap Value="False" />
