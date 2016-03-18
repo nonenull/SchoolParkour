@@ -1,0 +1,412 @@
+{
+  "ID": "402bb303-2791-4053-84f1-795aef9ddffd",
+  "Version": "3.10.0.0",
+  "Name": "RunnerLayer",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 5,
+        "Speed": 1.0,
+        "ActivedAnimationName": "animation0",
+        "Timelines": [
+          {
+            "ActionTag": -1361429266,
+            "Property": "Position",
+            "Frames": [
+              {
+                "X": 95.0,
+                "Y": 100.0,
+                "FrameIndex": 0,
+                "EasingData": {
+                  "Type": 0
+                },
+                "ctype": "PointFrameData"
+              }
+            ],
+            "ctype": "TimelineData"
+          },
+          {
+            "ActionTag": 2096661992,
+            "Property": "Position",
+            "Frames": [
+              {
+                "X": 97.0,
+                "Y": 99.0,
+                "FrameIndex": 1,
+                "EasingData": {
+                  "Type": 0
+                },
+                "ctype": "PointFrameData"
+              }
+            ],
+            "ctype": "TimelineData"
+          },
+          {
+            "ActionTag": 638764005,
+            "Property": "Position",
+            "Frames": [
+              {
+                "X": 95.0,
+                "Y": 100.0,
+                "FrameIndex": 2,
+                "EasingData": {
+                  "Type": 0
+                },
+                "ctype": "PointFrameData"
+              }
+            ],
+            "ctype": "TimelineData"
+          },
+          {
+            "ActionTag": 204376385,
+            "Property": "Position",
+            "Frames": [
+              {
+                "X": 97.0,
+                "Y": 97.0,
+                "FrameIndex": 3,
+                "EasingData": {
+                  "Type": 0
+                },
+                "ctype": "PointFrameData"
+              }
+            ],
+            "ctype": "TimelineData"
+          },
+          {
+            "ActionTag": 1298757346,
+            "Property": "Position",
+            "Frames": [
+              {
+                "X": 97.0,
+                "Y": 100.0,
+                "FrameIndex": 4,
+                "EasingData": {
+                  "Type": 0
+                },
+                "ctype": "PointFrameData"
+              }
+            ],
+            "ctype": "TimelineData"
+          },
+          {
+            "ActionTag": -203238977,
+            "Property": "Position",
+            "Frames": [
+              {
+                "X": 96.0,
+                "Y": 98.4888,
+                "FrameIndex": 5,
+                "EasingData": {
+                  "Type": 0
+                },
+                "ctype": "PointFrameData"
+              }
+            ],
+            "ctype": "TimelineData"
+          }
+        ],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [
+        {
+          "StartIndex": 0,
+          "EndIndex": 5,
+          "Name": "animation0",
+          "ctype": "AnimationInfoData"
+        }
+      ],
+      "ObjectData": {
+        "Tag": 5,
+        "Children": [
+          {
+            "FileData": {
+              "Type": "Normal",
+              "Path": "Runner1.png",
+              "Plist": ""
+            },
+            "Scale9OriginX": 63,
+            "Scale9OriginY": 65,
+            "Scale9Width": 67,
+            "Scale9Height": 67,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 95.0,
+              "Y": 100.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.4922,
+              "Y": 0.5076
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "LeftMargin": -1.5,
+            "RightMargin": 1.5,
+            "TopMargin": -1.5,
+            "BottomMargin": 1.5,
+            "Tag": 6,
+            "ActionTag": -1361429266,
+            "Size": {
+              "X": 193.0,
+              "Y": 197.0
+            },
+            "Name": "Image_1",
+            "ctype": "ImageViewObjectData"
+          },
+          {
+            "FileData": {
+              "Type": "Normal",
+              "Path": "Runner2.png",
+              "Plist": ""
+            },
+            "Scale9OriginX": 63,
+            "Scale9OriginY": 65,
+            "Scale9Width": 67,
+            "Scale9Height": 67,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 97.0,
+              "Y": 99.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5026,
+              "Y": 0.5025
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "LeftMargin": 0.5,
+            "RightMargin": -0.5,
+            "TopMargin": -0.5,
+            "BottomMargin": 0.5,
+            "Tag": 7,
+            "ActionTag": 2096661992,
+            "Size": {
+              "X": 193.0,
+              "Y": 197.0
+            },
+            "Name": "Image_2",
+            "ctype": "ImageViewObjectData"
+          },
+          {
+            "FileData": {
+              "Type": "Normal",
+              "Path": "Runner3.png",
+              "Plist": ""
+            },
+            "Scale9OriginX": 63,
+            "Scale9OriginY": 65,
+            "Scale9Width": 67,
+            "Scale9Height": 67,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 95.0,
+              "Y": 100.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.4922,
+              "Y": 0.5076
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "LeftMargin": -1.5,
+            "RightMargin": 1.5,
+            "TopMargin": -1.5,
+            "BottomMargin": 1.5,
+            "Tag": 8,
+            "ActionTag": 638764005,
+            "Size": {
+              "X": 193.0,
+              "Y": 197.0
+            },
+            "Name": "Image_3",
+            "ctype": "ImageViewObjectData"
+          },
+          {
+            "FileData": {
+              "Type": "Normal",
+              "Path": "Runner4.png",
+              "Plist": ""
+            },
+            "Scale9OriginX": 63,
+            "Scale9OriginY": 65,
+            "Scale9Width": 67,
+            "Scale9Height": 67,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 97.0,
+              "Y": 97.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5026,
+              "Y": 0.4924
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "LeftMargin": 0.5,
+            "RightMargin": -0.5,
+            "TopMargin": 1.5,
+            "BottomMargin": -1.5,
+            "Tag": 9,
+            "ActionTag": 204376385,
+            "Size": {
+              "X": 193.0,
+              "Y": 197.0
+            },
+            "Name": "Image_4",
+            "ctype": "ImageViewObjectData"
+          },
+          {
+            "FileData": {
+              "Type": "Normal",
+              "Path": "Runner5.png",
+              "Plist": ""
+            },
+            "Scale9OriginX": 63,
+            "Scale9OriginY": 65,
+            "Scale9Width": 67,
+            "Scale9Height": 67,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 97.0,
+              "Y": 100.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5026,
+              "Y": 0.5076
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "LeftMargin": 0.5,
+            "RightMargin": -0.5,
+            "TopMargin": -1.5,
+            "BottomMargin": 1.5,
+            "Tag": 10,
+            "ActionTag": 1298757346,
+            "Size": {
+              "X": 193.0,
+              "Y": 197.0
+            },
+            "Name": "Image_5",
+            "ctype": "ImageViewObjectData"
+          },
+          {
+            "FileData": {
+              "Type": "Normal",
+              "Path": "Runner6.png",
+              "Plist": ""
+            },
+            "Scale9OriginX": 63,
+            "Scale9OriginY": 65,
+            "Scale9Width": 67,
+            "Scale9Height": 67,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 96.0,
+              "Y": 98.4888
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.4974,
+              "Y": 0.4999
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "LeftMargin": -0.5,
+            "RightMargin": 0.5,
+            "TopMargin": 0.0112,
+            "BottomMargin": -0.0112,
+            "Tag": 11,
+            "ActionTag": -203238977,
+            "Size": {
+              "X": 193.0,
+              "Y": 197.0
+            },
+            "Name": "Image_6",
+            "ctype": "ImageViewObjectData"
+          }
+        ],
+        "Size": {
+          "X": 193.0,
+          "Y": 197.0
+        },
+        "Name": "Layer",
+        "ctype": "LayerObjectData"
+      },
+      "UsedResources": [
+        "Runner1.png",
+        "Runner2.png",
+        "Runner3.png",
+        "Runner4.png",
+        "Runner5.png",
+        "Runner6.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Layer"
+}
